@@ -3,3 +3,4 @@ venv
 __pycache__
 secret
 db.sqlite3
+secret.txt
