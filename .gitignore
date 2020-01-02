@@ -4,3 +4,4 @@ __pycache__
 secret
 db.sqlite3
 secret.txt
+migrations

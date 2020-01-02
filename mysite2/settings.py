@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -72,17 +74,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite2.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'HOST': '127.0.0.1',
+        'NAME': 'blog',
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': 'postgres',
+        'PASSWORD': 'coderslab',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -102,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -116,7 +120,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -127,7 +130,7 @@ EMAIL_HOST_USER = 'name@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #email on python colsole
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # email on python colsole
 
-#run debugging server in terminal:
-#sudo python -m smtpd -n -c DebuggingServer localhost:25
+# run debugging server in terminal:
+# sudo python -m smtpd -n -c DebuggingServer localhost:25

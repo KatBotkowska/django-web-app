@@ -1,0 +1,36 @@
+from django import template
+from django.db.models import Count
+from django.utils.safestring import mark_safe
+import markdown
+
+
+# obligatory to cretate templates library
+register = template.Library()
+
+from ..models import Post
+
+
+@register.simple_tag
+# to change tag name:
+# @register.simple_tag(name='new_tag')
+def total_posts():
+    return Post.published.count()
+
+
+# {% load blog_tags %} needed in html file
+
+
+@register.simple_tag
+def get_most_commented_posts(count=5):
+    return Post.published.annotate(total_comments=Count('comments')).order_by('-total_comments')[:count]
+#annotate with count
+
+@register.inclusion_tag('blog/post/latest_posts.html')
+def show_latest_posts(count=5):
+    latest_posts = Post.published.order_by('-publish')[:count]
+    return {'latest_posts': latest_posts}
+
+
+@register.filter(name='markdown')
+def markdown_format(text):
+    return mark_safe(markdown.markdown(text))
