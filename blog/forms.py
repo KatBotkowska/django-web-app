@@ -12,3 +12,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('name', 'email', 'body') # fields to fill by users, other fields filled by django
         # or exclude = ('column_names_to_exclude')
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
